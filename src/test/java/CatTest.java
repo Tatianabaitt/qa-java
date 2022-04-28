@@ -1,12 +1,10 @@
 import com.example.Cat;
 import com.example.Feline;
-import com.example.Predator;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
 
 import java.util.List;
 
@@ -16,9 +14,6 @@ import static org.junit.Assert.assertEquals;
 public class CatTest {
 
     @Mock
-    Predator predator;
-
-    @Spy
     Feline feline;
 
     @Before
@@ -29,12 +24,11 @@ public class CatTest {
     @Test
     public void getFoodCatReturnsCorrectValue() throws Exception {
         Cat cat = new Cat(feline);
-        Mockito.when(predator.eatMeat()).thenReturn(List.of("Животные", "Птицы", "Рыба"));
+        Mockito.when(feline.eatMeat()).thenReturn(List.of("Животные", "Птицы", "Рыба"));
         String message = "Для метода getFood() получено некорректное значение";
         List<String> expected = List.of("Животные", "Птицы", "Рыба");
         List<String> actual = cat.getFood();
         assertEquals(message, expected, actual);
-
     }
 
     @Test

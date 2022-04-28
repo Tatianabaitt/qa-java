@@ -1,6 +1,9 @@
 import com.example.Animal;
+import org.junit.Assert;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
 public class AnimalTest {
@@ -8,15 +11,8 @@ public class AnimalTest {
     @Test
     public void animalGetFoodReturnsCorrectTextException() {
         Animal animal = new Animal();
-        String actual = "";
-        String message = "При некорректном параметре метода getFood() не вернулась ожидаемая ошибка";
-        String expected = "Неизвестный вид животного, используйте значение Травоядное или Хищник";
-        try {
-            animal.getFood("Млекопитающее");
-        } catch (Exception e) {
-            actual = e.getMessage();
-        }
-        assertEquals(message, expected, actual);
+        Exception exception = Assert.assertThrows(Exception.class, () -> animal.getFood("Млекопитающее"));
+        assertThat(exception.getMessage(), containsString("Неизвестный вид животного, используйте значение Травоядное или Хищник"));
     }
 
     @Test

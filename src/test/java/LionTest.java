@@ -1,5 +1,6 @@
 import com.example.Feline;
 import com.example.Lion;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -9,7 +10,10 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
+
 
 public class LionTest {
 
@@ -23,15 +27,9 @@ public class LionTest {
 
     @Test
     public void lionReturnsCorrectTextException() {
-        String message = "В конструкторе Lion(Feline feline, String sex) некорректно отрабатывает исключение";
-        String actual = "";
-        String expected = "Используйте допустимые значения пола животного - самей или самка";
-        try {
-            new Lion(feline, "mane");
-        } catch (Exception e) {
-            actual = e.getMessage();
-        }
-        assertEquals(message, expected, actual);
+        Exception exception = Assert.assertThrows(Exception.class, () ->
+                new Lion(feline, "mane"));
+        assertThat(exception.getMessage(), containsString("Используйте допустимые значения пола животного - самей или самка"));
     }
 
     @Test
